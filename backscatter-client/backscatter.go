@@ -1,4 +1,4 @@
-package main
+package backscatter
 
 import (
 	"fmt"
@@ -24,6 +24,11 @@ type Response struct {
 }
 
 
+func test(){
+	fmt.Println("test")
+
+}
+
 func main() {
 	configuration, err := config.New()
 	if err != nil {
@@ -45,7 +50,7 @@ func main() {
 		Timeout: timeout,
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
-
+		},
 		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
 			req = req2
 			return nil
