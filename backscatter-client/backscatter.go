@@ -27,9 +27,6 @@ type Response struct {
 func test(){
 	fmt.Println("test")
 
-}
-
-func main() {
 	configuration, err := config.New()
 	if err != nil {
 		log.Panicln("configuration error", err)
