@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"./internal/config"
+	"/internal/config"
 	"crypto/tls"
 	"encoding/json"
 	//    "reflect"
