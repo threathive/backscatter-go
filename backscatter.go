@@ -24,7 +24,7 @@ type Response struct {
 }
 
 
-func test(){
+func Test(){
 	fmt.Println("test")
 
 	configuration, err := config.New()
