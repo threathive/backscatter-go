@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/threathive/backscatter-go/tree/master/internal/config"
+	"github.com/threathive/backscatter-go/internal/config"
 	"crypto/tls"
 	"encoding/json"
 	//    "reflect"
