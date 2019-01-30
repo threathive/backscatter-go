@@ -7,5 +7,5 @@ import (
 
 func main(){
 	fmt.Println("test")
-	backscatter.test()
+	backscatter.Test()
 }

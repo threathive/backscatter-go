@@ -10,11 +10,11 @@ import (
 	"github.com/threathive/backscatter-go/internal/config"
 	"crypto/tls"
 	"encoding/json"
-	//    "reflect"
 )
 
 type Query map[string]interface{}
 type Results map[string]interface{}
+
 
 type Response struct {
 	Message string `json:"message,omitempty"`
@@ -23,22 +23,16 @@ type Response struct {
 	Results `json:"results,omitempty"`
 }
 
-
-func Test(){
-	fmt.Println("test")
-
+func ApiTests(){
 	configuration, err := config.New()
 	if err != nil {
 		log.Panicln("configuration error", err)
 	}
 
-	fmt.Println(configuration)
 	api_key := configuration.Constants.BackScatter.ApiKey
 	api_server := configuration.Constants.BackScatter.ApiServer
-	fmt.Println("api key", api_key)
-	fmt.Println("api server", api_server)
-	timeout := time.Duration(30 * time.Second) // sets 5 second timeout
 
+	timeout := time.Duration(30 * time.Second) // sets 5 second timeout
 	req, err := http.NewRequest("GET", api_server+"hello", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", api_key)
@@ -84,7 +78,7 @@ func Test(){
 	q.Add("query", "8.8.8.8")
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.String())
+	//fmt.Println(req.URL.String())
 
 	resp, err = client.Do(req) //makes the request
 	if err != nil {
@@ -96,7 +90,7 @@ func Test(){
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
-	fmt.Println(string(body))
+	//fmt.Println(string(body))
 
 	//var r = new(Response)
 	err = json.Unmarshal(body, &r)
@@ -114,7 +108,7 @@ func Test(){
 	q.Add("query", "74.96.0.0/16")
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.String())
+	//fmt.Println(req.URL.String())
 
 	resp, err = client.Do(req) //makes the request
 	if err != nil {
@@ -141,7 +135,7 @@ func Test(){
 	q.Add("query", "701")
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.String())
+	//fmt.Println(req.URL.String())
 
 	resp, err = client.Do(req) //makes the request
 	if err != nil {
@@ -168,7 +162,7 @@ func Test(){
 	q.Add("query", "6666")
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.String())
+	//fmt.Println(req.URL.String())
 
 	resp, err = client.Do(req) //makes the request
 	if err != nil {
@@ -196,7 +190,7 @@ func Test(){
 	q.Add("query", "CN")
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.String())
+	//fmt.Println(req.URL.String())
 
 	resp, err = client.Do(req) //makes the request
 	if err != nil {
@@ -227,7 +221,7 @@ func Test(){
 	q.Add("scope", "1d")
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.String())
+	//fmt.Println(req.URL.String())
 
 	resp, err = client.Do(req) //makes the request
 	if err != nil {
@@ -255,7 +249,7 @@ func Test(){
 	q.Add("scope", "1d")
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.String())
+	//fmt.Println(req.URL.String())
 
 	resp, err = client.Do(req) //makes the request
 	if err != nil {
@@ -310,7 +304,7 @@ func Test(){
 	q.Add("scope", "1d")
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.String())
+	//fmt.Println(req.URL.String())
 
 	resp, err = client.Do(req) //makes the request
 	if err != nil {
@@ -338,7 +332,7 @@ func Test(){
 	q.Add("scope", "1d")
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.String())
+	//fmt.Println(req.URL.String())
 
 	resp, err = client.Do(req) //makes the request
 	if err != nil {
@@ -367,7 +361,7 @@ func Test(){
 	q.Add("query" , "74.96.192.82")
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.String())
+	//fmt.Println(req.URL.String())
 
 	resp, err = client.Do(req) //makes the request
 	if err != nil {
@@ -398,7 +392,7 @@ func Test(){
 	q.Add("query" , "74.96.0.0/32")
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.String())
+	//fmt.Println(req.URL.String())
 
 	resp, err = client.Do(req) //makes the request
 	if err != nil {
@@ -426,7 +420,7 @@ func Test(){
 	q.Add("query" , "701")
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.String())
+	//fmt.Println(req.URL.String())
 
 	resp, err = client.Do(req) //makes the request
 	if err != nil {
