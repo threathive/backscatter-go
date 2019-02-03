@@ -40,11 +40,12 @@ func APITests() {
 	apiserver := configuration.Constants.BackScatter.ApiServer
 
 	OnlineCheck(apikey, apiserver)
-	ObservationsIP(apikey, apiserver)
+	/*ObservationsIP(apikey, apiserver)
 	ObservationsASN(apikey, apiserver)
 	ObservationsPort(apikey, apiserver)
 	ObservationsCountry(apikey, apiserver)
 	ObservationsNetwork(apikey, apiserver)
+	*/
 }
 
 /*
