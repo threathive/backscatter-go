@@ -14,7 +14,6 @@ import (
 )
 
 var timeout time.Duration
-var r response
 
 type query map[string]interface{}
 type results map[string]interface{}
@@ -53,7 +52,7 @@ func APITests() {
 	Checks if the api is accessible.
 */
 func OnlineCheck(apikey string, apiserver string) {
-	timeout := time.Duration(30 * time.Second) // sets 5 second timeout
+	//timeout := time.Duration(30 * time.Second) // sets 5 second timeout
 	req, err := http.NewRequest("GET", apiserver+"hello", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
@@ -84,6 +83,8 @@ func OnlineCheck(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 
+	r := new(response)
+
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
@@ -95,6 +96,7 @@ func OnlineCheck(apikey string, apiserver string) {
 /*
  */
 func ObservationsIP(apikey string, apiserver string) {
+	//timeout := time.Duration(30 * time.Second) // sets 5 second timeout
 	req, err := http.NewRequest("GET", apiserver+"observations/ip", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
@@ -125,6 +127,8 @@ func ObservationsIP(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 	//fmt.Println(string(body))
+
+	r := new(response)
 
 	//var r = new(Response)
 	err = json.Unmarshal(body, &r)
@@ -169,6 +173,8 @@ func ObservationsNetwork(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 	//fmt.Println(string(body))
+	r := new(response)
+
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
@@ -210,6 +216,8 @@ func ObservationsASN(apikey string, apiserver string) {
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
+	r := new(response)
+
 	//fmt.Println(string(body))
 	err = json.Unmarshal(body, &r)
 	if err != nil {
@@ -253,6 +261,8 @@ func ObservationsPort(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 	//fmt.Println(string(body))
+	r := new(response)
+
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
@@ -295,6 +305,7 @@ func ObservationsCountry(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 	//fmt.Println(string(body))
+	r := new(response)
 
 	err = json.Unmarshal(body, &r)
 	if err != nil {
@@ -338,6 +349,8 @@ func TrendsIP(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 	//fmt.Println(string(body))
+	r := new(response)
+
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
@@ -380,6 +393,8 @@ func TrendsNetwork(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 	//fmt.Println(string(body))
+	r := new(response)
+
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
@@ -422,6 +437,8 @@ func TrendsASN(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 	//fmt.Println(string(body))
+	r := new(response)
+
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
@@ -464,6 +481,8 @@ func TrendsPort(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 	//fmt.Println(string(body))
+	r := new(response)
+
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
@@ -506,6 +525,8 @@ func TrendsCountry(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 	//fmt.Println(string(body))
+	r := new(response)
+
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
@@ -548,6 +569,8 @@ func EnrichmentIP(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 	//fmt.Println(string(body))
+	r := new(response)
+
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
@@ -590,6 +613,8 @@ func EnrichmentNetwork(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 	//fmt.Println(string(body))
+	r := new(response)
+
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
@@ -632,6 +657,8 @@ func EnrichmentASN(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 	//fmt.Println(string(body))
+	r := new(response)
+
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
