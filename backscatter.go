@@ -13,7 +13,7 @@ import (
 	"github.com/threathive/backscatter-go/internal/config"
 )
 
-var timeout int64
+var timeout time.Duration
 var r response
 
 type query map[string]interface{}
