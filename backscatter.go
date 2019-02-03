@@ -81,7 +81,7 @@ func OnlineCheck(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 
-	var r = new(Response)
+	var r = new(response)
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
@@ -93,9 +93,20 @@ func OnlineCheck(apikey string, apiserver string) {
 /*
  */
 func ObservationsIP(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"observations/ip", nil)
+	req, err := http.NewRequest("GET", apiserver+"observations/ip", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
 
 	q := req.URL.Query()
 	q.Add("query", "8.8.8.8")
@@ -126,9 +137,20 @@ func ObservationsIP(apikey string, apiserver string) {
 /*
  */
 func ObservationsNetwork(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"observations/network", nil)
+	req, err := http.NewRequest("GET", apiserver+"observations/network", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
 
 	q = req.URL.Query()
 	q.Add("query", "74.96.0.0/16")
@@ -157,9 +179,20 @@ func ObservationsNetwork(apikey string, apiserver string) {
 /*
  */
 func ObservationsASN(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"observations/asn", nil)
+	req, err := http.NewRequest("GET", apiserver+"observations/asn", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
 
 	q = req.URL.Query()
 	q.Add("query", "701")
@@ -188,9 +221,20 @@ func ObservationsASN(apikey string, apiserver string) {
 /*
  */
 func ObservationsPort(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"observations/port", nil)
+	req, err := http.NewRequest("GET", apiserver+"observations/port", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
 
 	q = req.URL.Query()
 	q.Add("query", "6666")
@@ -219,9 +263,20 @@ func ObservationsPort(apikey string, apiserver string) {
 /*
  */
 func ObservationsCountry(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"observations/country", nil)
+	req, err := http.NewRequest("GET", apiserver+"observations/country", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
 
 	q = req.URL.Query()
 	q.Add("query", "CN")
@@ -251,9 +306,20 @@ func ObservationsCountry(apikey string, apiserver string) {
 /*
  */
 func TrendsIP(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"trends/popular/ip", nil)
+	req, err := http.NewRequest("GET", apiserver+"trends/popular/ip", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
 
 	q = req.URL.Query()
 	q.Add("scope", "1d")
@@ -282,9 +348,20 @@ func TrendsIP(apikey string, apiserver string) {
 /*
  */
 func TrendsNetwork(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"trends/popular/network", nil)
+	req, err := http.NewRequest("GET", apiserver+"trends/popular/network", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
 
 	q = req.URL.Query()
 	q.Add("scope", "1d")
@@ -313,9 +390,20 @@ func TrendsNetwork(apikey string, apiserver string) {
 /*
  */
 func TrendsASN(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"trends/popular/asn", nil)
+	req, err := http.NewRequest("GET", apiserver+"trends/popular/asn", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
 
 	q = req.URL.Query()
 	q.Add("scope", "1d")
@@ -344,9 +432,21 @@ func TrendsASN(apikey string, apiserver string) {
 /*
  */
 func TrendsPort(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"trends/popular/port", nil)
+	req, err := http.NewRequest("GET", apiserver+"trends/popular/port", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
+
 	q = req.URL.Query()
 	q.Add("scope", "1d")
 	req.URL.RawQuery = q.Encode()
@@ -374,9 +474,20 @@ func TrendsPort(apikey string, apiserver string) {
 /*
  */
 func TrendsCountry(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"trends/popular/country", nil)
+	req, err := http.NewRequest("GET", apiserver+"trends/popular/country", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
 
 	q = req.URL.Query()
 	q.Add("scope", "1d")
@@ -405,9 +516,20 @@ func TrendsCountry(apikey string, apiserver string) {
 /*
  */
 func EnrichmentIP(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"enrichment/ip", nil)
+	req, err := http.NewRequest("GET", apiserver+"enrichment/ip", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
 
 	q = req.URL.Query()
 	q.Add("query", "74.96.192.82")
@@ -436,9 +558,20 @@ func EnrichmentIP(apikey string, apiserver string) {
 /*
  */
 func EnrichmentNetwork(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"enrichment/network", nil)
+	req, err := http.NewRequest("GET", apiserver+"enrichment/network", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
 
 	q = req.URL.Query()
 	q.Add("query", "74.96.0.0/32")
@@ -467,9 +600,20 @@ func EnrichmentNetwork(apikey string, apiserver string) {
 /*
  */
 func EnrichmentASN(apikey string, apiserver string) {
-	req, err = http.NewRequest("GET", apiserver+"enrichment/asn", nil)
+	req, err := http.NewRequest("GET", apiserver+"enrichment/asn", nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/48.0") // sets the useragent
 	req.Header.Set("X-API-KEY", apikey)
+
+	client := &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: false}, // sets config to ignore ssl issues
+		},
+		CheckRedirect: func(req2 *http.Request, via []*http.Request) error {
+			req = req2
+			return nil
+		},
+	}
 
 	q = req.URL.Query()
 	q.Add("query", "701")
