@@ -1,11 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"github.com/threathive/backscatter-go"
 )
 
-func main(){
-	fmt.Println("test")
-	backscatter.Test()
+func main() {
+	backscatter.APITests()
 }
