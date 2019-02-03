@@ -40,11 +40,12 @@ func APITests() {
 	apiserver := configuration.Constants.BackScatter.ApiServer
 
 	OnlineCheck(apikey, apiserver)
-	/*ObservationsIP(apikey, apiserver)
-	ObservationsASN(apikey, apiserver)
-	ObservationsPort(apikey, apiserver)
-	ObservationsCountry(apikey, apiserver)
-	ObservationsNetwork(apikey, apiserver)
+	ObservationsIP(apikey, apiserver)
+	/*
+		ObservationsASN(apikey, apiserver)
+		ObservationsPort(apikey, apiserver)
+		ObservationsCountry(apikey, apiserver)
+		ObservationsNetwork(apikey, apiserver)
 	*/
 }
 
@@ -90,7 +91,7 @@ func OnlineCheck(apikey string, apiserver string) {
 	if err != nil {
 		fmt.Println("error parsing hello", err)
 	}
-	fmt.Println(r.Message, r.Success)
+	fmt.Println(r.Message, r.Success) //bonjour true
 
 }
 
