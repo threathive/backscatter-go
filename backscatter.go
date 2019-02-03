@@ -13,6 +13,9 @@ import (
 	"github.com/threathive/backscatter-go/internal/config"
 )
 
+var timeout int64
+var r response
+
 type query map[string]interface{}
 type results map[string]interface{}
 
@@ -32,10 +35,10 @@ func APITests() {
 		log.Panicln("configuration error", err)
 	}
 
+	timeout = time.Duration(30 * time.Second) // sets 5 second timeout
+
 	apikey := configuration.Constants.BackScatter.ApiKey
 	apiserver := configuration.Constants.BackScatter.ApiServer
-
-	timeout := time.Duration(30 * time.Second) // sets 5 second timeout
 
 	OnlineCheck(apikey, apiserver)
 	ObservationsIP(apikey, apiserver)
@@ -81,7 +84,6 @@ func OnlineCheck(apikey string, apiserver string) {
 		log.Fatal("Error reading body of response.", err)
 	}
 
-	var r = new(response)
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		fmt.Println("error parsing hello", err)
@@ -112,15 +114,13 @@ func ObservationsIP(apikey string, apiserver string) {
 	q.Add("query", "8.8.8.8")
 	req.URL.RawQuery = q.Encode()
 
-	//fmt.Println(req.URL.String())
-
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
@@ -152,19 +152,19 @@ func ObservationsNetwork(apikey string, apiserver string) {
 		},
 	}
 
-	q = req.URL.Query()
+	q := req.URL.Query()
 	q.Add("query", "74.96.0.0/16")
 	req.URL.RawQuery = q.Encode()
 
 	//fmt.Println(req.URL.String())
 
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
@@ -194,19 +194,19 @@ func ObservationsASN(apikey string, apiserver string) {
 		},
 	}
 
-	q = req.URL.Query()
+	q := req.URL.Query()
 	q.Add("query", "701")
 	req.URL.RawQuery = q.Encode()
 
 	//fmt.Println(req.URL.String())
 
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
@@ -236,19 +236,19 @@ func ObservationsPort(apikey string, apiserver string) {
 		},
 	}
 
-	q = req.URL.Query()
+	q := req.URL.Query()
 	q.Add("query", "6666")
 	req.URL.RawQuery = q.Encode()
 
 	//fmt.Println(req.URL.String())
 
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
@@ -278,19 +278,19 @@ func ObservationsCountry(apikey string, apiserver string) {
 		},
 	}
 
-	q = req.URL.Query()
+	q := req.URL.Query()
 	q.Add("query", "CN")
 	req.URL.RawQuery = q.Encode()
 
 	//fmt.Println(req.URL.String())
 
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
@@ -321,19 +321,19 @@ func TrendsIP(apikey string, apiserver string) {
 		},
 	}
 
-	q = req.URL.Query()
+	q := req.URL.Query()
 	q.Add("scope", "1d")
 	req.URL.RawQuery = q.Encode()
 
 	//fmt.Println(req.URL.String())
 
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
@@ -363,19 +363,19 @@ func TrendsNetwork(apikey string, apiserver string) {
 		},
 	}
 
-	q = req.URL.Query()
+	q := req.URL.Query()
 	q.Add("scope", "1d")
 	req.URL.RawQuery = q.Encode()
 
 	//fmt.Println(req.URL.String())
 
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
@@ -405,19 +405,19 @@ func TrendsASN(apikey string, apiserver string) {
 		},
 	}
 
-	q = req.URL.Query()
+	q := req.URL.Query()
 	q.Add("scope", "1d")
 	req.URL.RawQuery = q.Encode()
 
 	fmt.Println(req.URL.String())
 
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
@@ -447,19 +447,19 @@ func TrendsPort(apikey string, apiserver string) {
 		},
 	}
 
-	q = req.URL.Query()
+	q := req.URL.Query()
 	q.Add("scope", "1d")
 	req.URL.RawQuery = q.Encode()
 
 	//fmt.Println(req.URL.String())
 
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
@@ -489,19 +489,19 @@ func TrendsCountry(apikey string, apiserver string) {
 		},
 	}
 
-	q = req.URL.Query()
+	q := req.URL.Query()
 	q.Add("scope", "1d")
 	req.URL.RawQuery = q.Encode()
 
 	//fmt.Println(req.URL.String())
 
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
@@ -531,19 +531,19 @@ func EnrichmentIP(apikey string, apiserver string) {
 		},
 	}
 
-	q = req.URL.Query()
+	q := req.URL.Query()
 	q.Add("query", "74.96.192.82")
 	req.URL.RawQuery = q.Encode()
 
 	//fmt.Println(req.URL.String())
 
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
@@ -573,19 +573,19 @@ func EnrichmentNetwork(apikey string, apiserver string) {
 		},
 	}
 
-	q = req.URL.Query()
+	q := req.URL.Query()
 	q.Add("query", "74.96.0.0/32")
 	req.URL.RawQuery = q.Encode()
 
 	//fmt.Println(req.URL.String())
 
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
@@ -615,19 +615,19 @@ func EnrichmentASN(apikey string, apiserver string) {
 		},
 	}
 
-	q = req.URL.Query()
+	q := req.URL.Query()
 	q.Add("query", "701")
 	req.URL.RawQuery = q.Encode()
 
 	//fmt.Println(req.URL.String())
 
-	resp, err = client.Do(req) //makes the request
+	resp, err := client.Do(req) //makes the request
 	if err != nil {
 		log.Fatal("Error making GET request.", err)
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body of response.", err)
 	}
