@@ -137,7 +137,8 @@ func ObservationsIP(apikey string, apiserver string) {
 	if err != nil {
 		fmt.Println("error parsing hello", err)
 	}
-	fmt.Println(r)
+	fmt.Println(r.Message, r.Success, r.query, r.results) //bonjour true
+
 }
 
 /*
