@@ -79,8 +79,6 @@ func main() {
 			Name:  "ping",
 			Usage: "Looks to see if we can make a basic authenticated request.",
 			Flags: myFlags,
-			// the action, or code that will be executed when
-			// we execute our `ns` command
 			Action: func(c *cli.Context) error {
 				ctx := context.Background()
 				h, _ := client.Hello(ctx)
@@ -92,8 +90,6 @@ func main() {
 			Name:  "observations",
 			Usage: "Looks up observations for a ip, network , asn , port or country.",
 			Flags: myFlags,
-			// the action, or code that will be executed when
-			// we execute our `ns` command
 			Action: func(c *cli.Context) error {
 				ctx := context.Background()
 				client.Query = c.Args().Get(0)
