@@ -4,6 +4,8 @@
 package main
 
 import (
+	"github.com/urfave/cli"
+	"os"
 	"fmt"
 	"net/http"
 	"time"
@@ -29,7 +31,6 @@ func prettyPrint(i interface{}) string {
 
 
 func main() {
-
         configuration, err := config.New()
         if err != nil {
                 log.Panicln("configuration error", err)
@@ -52,90 +53,98 @@ func main() {
                 },
         }
 
-	ctx := context.Background()
-	h, _ := client.Hello(ctx)
-	fmt.Println(h)
+	var qtype,scope string
+	app := cli.NewApp()
+	app.Name = "Backscatter.io command line client."
+	app.Usage = "Let's you lookup sensor data related to ip, domain, asn, country data."
+	myFlags := []cli.Flag{
+		cli.StringFlag{
+			Name: "qtype",
+			Value: "ip",
+			Usage: "query type",
+			Destination: &qtype,
+		},
+		cli.StringFlag{
+			Name: "scope",
+			Value: "1d",
+			Usage: "time scope",
+			Destination: &scope,
+		},
+	}
 
-	client.Query = "60.28.178.124"
-	client.QueryType = "ip"
+	// we create our commands
+	app.Commands = []cli.Command{
 
-	o, _ := client.SearchObservations(ctx)
-	fmt.Println(prettyPrint(o))
+		{
+			Name:  "ping",
+			Usage: "Looks to see if we can make a basic authenticated request.",
+			Flags: myFlags,
+			// the action, or code that will be executed when
+			// we execute our `ns` command
+			Action: func(c *cli.Context) error {
+				ctx := context.Background()
+				h, _ := client.Hello(ctx)
+				fmt.Println(prettyPrint(h))
+				return nil
+			},
+		},
+		{
+			Name:  "observations",
+			Usage: "Looks up observations for a ip, network , asn , port or country.",
+			Flags: myFlags,
+			// the action, or code that will be executed when
+			// we execute our `ns` command
+			Action: func(c *cli.Context) error {
+				ctx := context.Background()
+				client.Query = c.Args().Get(0)
+				client.QueryType = qtype
+				client.Scope = scope
 
-	client.Query = "74.96.0.0/16"
-	client.QueryType = "network"
+				o, _ := client.SearchObservations(ctx)
+				fmt.Println(prettyPrint(o))
+				return nil
 
-	o, _ = client.SearchObservations(ctx)
-	fmt.Println(prettyPrint(o))
+			},
+		},
+		{
+			Name:  "trends",
+			Usage: "Looks up trending data about an ip , network, asn , port or country",
+			Flags: myFlags,
+			Action: func(c *cli.Context) error {
+				ctx := context.Background()
+				client.Query = ""
+				client.QueryType = qtype
+				client.Scope = scope
 
-	client.Query = "701"
-	client.QueryType = "asn"
+				h, _ := client.SearchTrends(ctx)
+				fmt.Println(prettyPrint(h))
+				return nil
+			},
+		},
+		{
+			Name:  "enrichments",
+			Usage: "Looks up enrichment data about an ip , network, asn or port.",
+			Flags: myFlags,
+			Action: func(c *cli.Context) error {
+				ctx := context.Background()
+				client.Query = c.Args().Get(0)
+				client.QueryType = qtype
+				client.Scope = scope
+				h, _ := client.SearchEnrichments(ctx)
+				fmt.Println(prettyPrint(h))
+				return nil
+			},
 
-	o, _ = client.SearchObservations(ctx)
-	fmt.Println(prettyPrint(o))
+		},
 
-	client.Query = "6666"
-	client.QueryType = "port"
+	}
 
-	o, _ = client.SearchObservations(ctx)
-	fmt.Println(prettyPrint(o))
+	// start our application
+	err = app.Run(os.Args)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	client.Query = "US"
-	client.QueryType = "country"
-
-	o, _ = client.SearchObservations(ctx)
-	fmt.Println(prettyPrint(o))
-
-	client.Query = ""
-	client.QueryType = "ip"
-
-	t, _ := client.SearchTrends(ctx)
-	fmt.Println(prettyPrint(t))
-
-
-	client.QueryType = "network"
-
-	t, _ = client.SearchTrends(ctx)
-	fmt.Println(prettyPrint(t))
-
-	client.QueryType = "asn"
-
-	t, _ = client.SearchTrends(ctx)
-	fmt.Println(prettyPrint(t))
-
-	client.QueryType = "port"
-
-	t, _ = client.SearchTrends(ctx)
-	fmt.Println(prettyPrint(t))
-
-	client.QueryType = "country"
-
-	t, _ = client.SearchTrends(ctx)
-	fmt.Println(prettyPrint(t))
-
-	client.Query = "74.96.192.82"
-	client.QueryType = "ip"
-
-	e, _ := client.SearchEnrichments(ctx)
-	fmt.Println(prettyPrint(e))
-
-	client.Query = "74.96.0.0/32"
-	client.QueryType = "network"
-
-	e, _ = client.SearchEnrichments(ctx)
-	fmt.Println(prettyPrint(e))
-
-	client.Query = "701"
-	client.QueryType = "asn"
-
-	e, _ = client.SearchEnrichments(ctx)
-	fmt.Println(prettyPrint(e))
-
-	client.Query = "443"
-	client.QueryType = "port"
-
-	e, _ = client.SearchEnrichments(ctx)
-	fmt.Println(prettyPrint(e))
 
 }
 
