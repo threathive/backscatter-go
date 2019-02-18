@@ -1,11 +1,12 @@
 Golang Backscatter
 ===================
 
-This is a golang library built to interface with the `Backscatter.io`_ service. It allows for integrating of the service into any golang based project.
+This is a golang library built to interface with the Backscatter service. It allows for integrating of the service into any golang based project.
 This project also includes a cli client for easily quering the api.
 
 
-.. _Backscatter: https://backscatter.io/
+Backscatter: https://backscatter.io/
+Dev documentation: https://backscatter.io/developers
 
 Quick Start
 -----------
