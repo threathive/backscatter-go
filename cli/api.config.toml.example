@@ -1,0 +1,3 @@
+[BackScatter]
+        ApiServer = "https://api.backscatter.io/v0/"
+	ApiKey = "_get_a_key_"

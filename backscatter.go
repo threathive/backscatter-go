@@ -4,6 +4,7 @@
 package backscatter
 
 import (
+	"log"
 	"time"
 	"bytes"
 	"encoding/json"
@@ -18,7 +19,7 @@ import (
 const DefaultBaseUrl = "https://api.backscatter.io/v0/"
 
 // Version of this library
-const Version = "0.1"
+const Version = "0.0.1"
 
 // Generic interface we will use for various Enrichment types
 type GenericResponse interface {
@@ -166,6 +167,9 @@ type Trends struct {
 }
 
 /*
+
+
+
 ⊖{
     "results": ⊖{
         "as_name": "UUNET - MCI Communications Services, Inc. d/b/a Verizon Business, US",
@@ -433,7 +437,9 @@ func (c *Client) doReqURL(ctx context.Context, u string, jsonInto interface{}) e
 
 	if c.Query != ""{
 		q := req.URL.Query()
-		q.Add("query", c.Query)
+		if c.Query != ""{
+			q.Add("query", c.Query)
+		}
 
 		if c.Scope != ""{
 			q.Add("scope", c.Scope)
@@ -453,11 +459,11 @@ func (c *Client) doReqURL(ctx context.Context, u string, jsonInto interface{}) e
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		fmt.Println("error...")
+		log.Print("We received an invalid response code " , resp.StatusCode)
 	}
 
 	if err := json.NewDecoder(&b).Decode(jsonInto); err != nil {
-		fmt.Println("can't decode json")
+		log.Print("Error decoding json data " , err)
 	}
 
 	if err := resp.Body.Close(); err != nil {
